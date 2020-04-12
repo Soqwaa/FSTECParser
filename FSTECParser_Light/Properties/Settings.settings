@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FSTECParser_Light.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Width" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">800</Value>
+    </Setting>
+    <Setting Name="Height" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">600</Value>
+    </Setting>
+    <Setting Name="WebFilePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://bdu.fstec.ru/files/documents/thrlist.xlsx</Value>
+    </Setting>
+    <Setting Name="ThreatsOnPage" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="HeaderLine" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="WindowState" Type="System.Windows.WindowState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="Параметр" Type="OfficeOpenXml.LicenseContext" Scope="Application">
+      <Value Profile="(Default)">NonCommercial</Value>
+    </Setting>
+    <Setting Name="LocalFilePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">lib/local</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

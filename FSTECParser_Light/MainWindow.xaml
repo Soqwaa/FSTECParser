@@ -1,0 +1,152 @@
+﻿<Window x:Class="FSTECParser_Light.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:FSTECParser_Light"
+        xmlns:vm="clr-namespace:FSTECParser_Light.ViewModels"
+        xmlns:converters="clr-namespace:FSTECParser_Light.Converters"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="ФСТЭК Парсер" Height="600" Width="800" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged">
+    
+    <Window.DataContext>
+        <vm:MainWindowViewModel></vm:MainWindowViewModel>
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:BoolToStringConverter x:Key="BoolToStringConverter"/>
+        <Style x:Key="HeaderTextBlock" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="ContentTextBlock" TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="TextAlignment" Value="Justify"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="Splitter" TargetType="GridSplitter">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style x:Key="PageButton" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="35,3,35,3" />
+        </Style>
+        <Style x:Key="ListButton" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0,0,15,0" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <Menu Name="TopMenu" DockPanel.Dock="Top" Padding="2" Background="White">
+            <MenuItem Header="Файл" Padding="3">
+                <MenuItem Header="Сохранить" Command="{Binding Save}" />
+                <Separator />
+                <MenuItem Header="Выход" Command="{Binding Exit}"/>
+            </MenuItem>
+            <MenuItem Header="Правка">
+                <MenuItem Header="Обновить файл" Command="{Binding UpdateFile}"/>
+                <!--<Separator />
+                <MenuItem Header="Настройки"/>-->
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="193*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Style="{StaticResource ListButton}" Name="ListButton" Grid.Column="1" Click="ListButton_Click" Content="Скрыть список"/>
+            <ScrollViewer Grid.ColumnSpan="2">
+                <Grid Name="Detail" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Индентификатор угрозы:" Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ElementName=DataGridMain, Path=SelectedItem.FullThreat.Id}" Style="{StaticResource ContentTextBlock}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Наименование угрозы:" Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=DataGridMain, Path=SelectedItem.FullThreat.Name}" Style="{StaticResource ContentTextBlock}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Описание угрозы:" Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=DataGridMain, Path=SelectedItem.FullThreat.Description}" Style="{StaticResource ContentTextBlock}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Источник угрозы:" Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ElementName=DataGridMain, Path=SelectedItem.FullThreat.Source}" Style="{StaticResource ContentTextBlock}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Объект воздействия угрозы:" Style="{StaticResource HeaderTextBlock}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ElementName=DataGridMain, Path=SelectedItem.FullThreat.Target}" Style="{StaticResource ContentTextBlock}" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Нарушение конфиденциальности:" Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding ElementName=DataGridMain, Path=SelectedItem.FullThreat.AccessViolation, Converter={StaticResource BoolToStringConverter}}" Style="{StaticResource ContentTextBlock}" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Нарушение целостности:" Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding ElementName=DataGridMain, Path=SelectedItem.FullThreat.AccessViolation, Converter={StaticResource BoolToStringConverter}}" Style="{StaticResource ContentTextBlock}" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Text="Нарушение доступности:" Style="{StaticResource HeaderTextBlock}" />
+                    <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding ElementName=DataGridMain, Path=SelectedItem.FullThreat.AccessViolation, Converter={StaticResource BoolToStringConverter}}" Style="{StaticResource ContentTextBlock}"/>
+                    <GridSplitter Grid.Row="0" Style="{StaticResource Splitter}" Grid.ColumnSpan="2"/>
+                    <GridSplitter Grid.Row="1" Style="{StaticResource Splitter}" Grid.ColumnSpan="2"/>
+                    <GridSplitter Grid.Row="2" Style="{StaticResource Splitter}" Grid.ColumnSpan="2"/>
+                    <GridSplitter Grid.Row="3" Style="{StaticResource Splitter}" Grid.ColumnSpan="2"/>
+                    <GridSplitter Grid.Row="4" Style="{StaticResource Splitter}" Grid.ColumnSpan="2"/>
+                    <GridSplitter Grid.Row="5" Style="{StaticResource Splitter}" Grid.ColumnSpan="2"/>
+                    <GridSplitter Grid.Row="6" Style="{StaticResource Splitter}" Grid.ColumnSpan="2"/>
+                    <GridSplitter Grid.Row="7" Style="{StaticResource Splitter}" Grid.ColumnSpan="2"/>
+                </Grid>
+            </ScrollViewer>
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" Name="ListContainter" Background="#FFF4F4F4">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <DataGrid Background="#FFFAFAFA" 
+                          CanUserDeleteRows="False" 
+                          CanUserAddRows="False" 
+                          Grid.Row="0" 
+                          HorizontalScrollBarVisibility="Disabled" 
+                          BorderBrush="#FFF0F0F0" 
+                          MaxHeight="325" 
+                          IsReadOnly="True" 
+                          Name="DataGridMain" 
+                          AutoGeneratingColumn="DataGridMain_AutoGeneratingColumn" 
+                          VerticalGridLinesBrush="#FFAAAAAA" 
+                          HorizontalGridLinesBrush="#FFAAAAAA" 
+                          Width="Auto" 
+                          SelectionMode="Single" 
+                          Grid.ColumnSpan="4" 
+                          ItemsSource="{Binding PageThreats, Mode=OneWay}"
+                          CanUserSortColumns="False"
+                          VerticalScrollBarVisibility="Visible"/>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Height="25" Grid.Row="1">
+                    <Button Content="Первая страница" Style="{StaticResource PageButton}" Command="{Binding FirstPage}"/>
+                    <Button Content="Предыдущая страница" Style="{StaticResource PageButton}" Command="{Binding PreviousPage}"/>
+                    <TextBlock Name="SaveStatus" Text="{Binding Page, Mode=OneWay}" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <Button Content="Следующая страница" Style="{StaticResource PageButton}" Command="{Binding NextPage}"/>
+                    <Button Content="Последняя страница" Style="{StaticResource PageButton}" Command="{Binding LastPage}"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
