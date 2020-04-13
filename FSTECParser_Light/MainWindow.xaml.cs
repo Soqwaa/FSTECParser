@@ -3,7 +3,6 @@ using OfficeOpenXml;
 using System.Windows;
 using System.Windows.Controls;
 using FSTECParser_Light.Properties;
-using FSTECParser_Light.ViewModels;
 
 namespace FSTECParser_Light
 {
@@ -49,11 +48,8 @@ namespace FSTECParser_Light
         // Изменение состояния окна (на весь экран / оконный режим)
         private void Window_StateChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("Было: " + Settings.Default.WindowState.ToString());
             Settings.Default.WindowState = this.WindowState;
-            MessageBox.Show("Стало: " + Settings.Default.WindowState.ToString());
             Settings.Default.Save();
-            MessageBox.Show("Save: " + Settings.Default.WindowState.ToString());
         }
         // Анимация открытия и закрытия списка угроз
         private void ListButton_Click(object sender, RoutedEventArgs e)

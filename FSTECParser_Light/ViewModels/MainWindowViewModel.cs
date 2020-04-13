@@ -274,8 +274,16 @@ namespace FSTECParser_Light.ViewModels
             }
             else
             {
-                try { threats = ShortThreat.GetShortThreatsFromThreats(ExcelFile.ParseFile()); }
-                catch { MessageBox.Show("Не удалось распарсить файл!\nФайл локальной базы данных повреждён или формат не совпадает\nУдалите файл local в папке с программой и выполните обновления файла в пункте Правка", "Файл повреждён", MessageBoxButton.OK, MessageBoxImage.Error); fileIsBroken = true; }
+                try
+                {
+                    threats = ShortThreat.GetShortThreatsFromThreats(ExcelFile.ParseFile());
+                    fileIsBroken = false;
+                }
+                catch
+                {
+                    MessageBox.Show("\nФайл локальной базы данных повреждён или его формат не совпадает с требуемым.\nУдалите файл локальной базы данных local в папке lib программы и выполните загрузку нового файла в пункте меню «Правка» → «Обновить файл»", "Не удалось распарсить файл!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    fileIsBroken = true;
+                }
             }
         }
         private List<ShortThreat> GetShortThreatsByPage()
@@ -294,9 +302,14 @@ namespace FSTECParser_Light.ViewModels
                     MessageBox.Show("Файл успешно загружен!", "Успех", MessageBoxButton.OK, MessageBoxImage.None);
                     threats = ShortThreat.GetShortThreatsFromThreats(ExcelFile.ParseFile());
                     page = 1;
+                    fileIsBroken = false;
                     return true;
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message, "Ошибка загрузки файла", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\n", "Ошибка загрузки файла", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
             }
             else
             {

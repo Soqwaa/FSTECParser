@@ -1,7 +1,6 @@
 ﻿using FSTECParser_Light.Properties;
 using OfficeOpenXml;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -38,7 +37,7 @@ namespace FSTECParser_Light
         /// <returns>Если соединение существует, метод возвращает true, иначе - false</returns>
         internal static bool CheckInternetConnection()
         {
-            try { return new Ping().Send("google.com").Status == IPStatus.Success ? true : false; }
+            try { return new Ping().Send("google.com").Status == IPStatus.Success ? true : false;  }
             catch { return false; }
         }
         /// <summary>
@@ -46,7 +45,11 @@ namespace FSTECParser_Light
         /// </summary>
         internal static void DownloadFile()
         {
-            new WebClient().DownloadFile(Settings.Default.WebFilePath, Settings.Default.LocalFilePath);
+            var webClient = new WebClient();
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.DefaultConnectionLimit = 9999;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+            webClient.DownloadFile(Settings.Default.WebFilePath, Settings.Default.LocalFilePath);
         }
         /// <summary>
         /// Возвращает коллекцию экземпляров класса Threat полученную из файла, расположенному по пути, указанному в настройках программы
