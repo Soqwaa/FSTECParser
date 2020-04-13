@@ -26,4 +26,4 @@ ____
 ## Скриншот программы
 ![Скриншот FSTECParser](https://downloader.disk.yandex.ru/preview/1ad1f29b23cf7d317df1ba64f03f125ba656cccb39329f8bd21e322dddfb68eb/5e94978d/SaSuJAhjFu1niloba9WbMsOm870_AXCm4rKAbHWffHMaFz5gdZhLKhKntGAfo1KOmo71Kz9UOJUeKyWqOcBFDA==?uid=0&filename=screenshot.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&owner_uid=95057292&size=2048x2048 "Скриншот FSTECParser")
 
-[⬆️В начало](https://github.com/Soqwaa/FSTECParser/new/master?readme=1#fstecparser)
+[⬆️В начало](https://github.com/Soqwaa/FSTECParser#fstecparser)
